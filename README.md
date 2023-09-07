@@ -2,6 +2,15 @@
 
 This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
+## Tech Stack
+
+This Table component will be created with as few dependencies as possible: 
+- lit
+- material icons
+- uuid
+
+Stay tuned to see the final look of it.
+
 ## Installation
 
 ```bash
