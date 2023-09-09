@@ -1,64 +1,60 @@
-import { css } from "lit";
+import { css } from 'lit';
+
+// --var-data-table--font-family: 'Roboto', sans-serif;
+
+// --var-data-table--color-primary: #D9A282;
+// --var-data-table--color-secondary: #8C594D;
+// --var-data-table--color-tertiary: #A6A6A6;
+// --var-data-table--color-quaternary: #404040;
+// --var-data-table--color-quinary: #0D0D0D;
+
+// --var-data-table--custom-rem: 16px;
 
 const DataTableStyles = css`
+  :host {
+    /* background-color: var(--var-data-table--color-primary); */
+  }
 
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24;
-}
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
 
-.table-wrapper {
+  .table-wrapper {
     overflow-x: auto;
+    overflow-y: auto;
     min-width: unset;
     scrollbar-width: thin;
-    scrollbar-color: blue;
+    scrollbar-color: var(--var-data-table--color-quaternary);
+    font-size: var(--var-data-table--custom-rem);
   }
-  
-  .table-wrapper::-webkit-scrollbar {
-    width: 12px;
-  }
-  
-  .table-wrapper::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  
-  .table-wrapper::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    border-radius: 20px;
-    border: 1px solid black;
-  }
-  
+
   table {
     border-color: transparent;
   }
-  
+
   .table {
     width: 100%;
     border-spacing: 0;
     white-space: nowrap;
   }
-  
+
   .table.wide-style {
     border-collapse: separate;
   }
-  
+
   .table.tight-style {
     border-collapse: collapse;
   }
-  
-  .table.tight-style>tbody>tr.padding-row {
+
+  .table.tight-style > tbody > tr.padding-row {
     display: none;
   }
-  
-  .table.wide-style>tbody>tr.padding-row {
-    display: block;
-    min-height: 12px;
-    max-height: 12px;
-  }
 
-  `;
+  .table.wide-style > tbody > tr.padding-row {
+    display: block;
+    min-height: 0.75rem;
+    max-height: 0.75rem;
+  }
+`;
 
 export default DataTableStyles;
