@@ -1,14 +1,14 @@
-import { IDataCellEntry } from "../interfaces/IDataCellEntry.js";
-import { CellValues } from "./ValueTypes.js";
+import { IDataCellEntry } from '../interfaces/IDataCellEntry.js';
+import { CellValues } from './ValueTypes.js';
 
 /**
  * The PreviewRowData object is used to identify a specific kind of subrow, the preview one.
  */
 export type PreviewRowData = {
-    id: string;
-    parentID: string;
-    isHidden: boolean;
-}
+  id: string;
+  parentID: string;
+  isHidden: boolean;
+};
 
 /**
  * ## RowData
@@ -16,21 +16,21 @@ export type PreviewRowData = {
  * This data type can be used by the developers to make sure that the data they pass down to the table is renderable and organized in the best possible way - ad customizable with adhoc properties.
  */
 export type RowData = {
-    id: string;
-    cells?: {
-        [key: string]: IDataCellEntry;
-    };
-    isHidden?: boolean;
-    subRows?: Array<RowData>;
-    areSubRowsOpen?: boolean;
-    previewRow?: PreviewRowData;
-    hasAlertsToShow?: boolean;
-    rowOnAlertClickFunction?: Function;
-    rowOnThreeDotsFunction?: Function;
-    rowPreChevronFunction?: Function;
-    rowOnChevronFunction?: Function;
-    hasCustomSubrowContent?: boolean;
-    isChevronHidden?: boolean;
+  id: string;
+  cells?: {
+    [key: string]: IDataCellEntry;
+  };
+  isHidden?: boolean;
+  subRows?: Array<RowData>;
+  areSubRowsOpen?: boolean;
+  previewRow?: PreviewRowData;
+  hasAlertsToShow?: boolean;
+  rowOnAlertClickFunction?: Function;
+  rowOnThreeDotsFunction?: Function;
+  rowPreChevronFunction?: Function;
+  rowOnChevronFunction?: Function;
+  hasCustomSubrowContent?: boolean;
+  isChevronHidden?: boolean;
 };
 
 /**
@@ -38,55 +38,55 @@ export type RowData = {
  * isSortable, isDraggable
  */
 export type HeaderCell = {
-    property: string;
-    value: CellValues;
-    id: string;
-    isCopiable?: boolean;
-    isSortable?: boolean;
-    isDraggable?: boolean;
-    isPropertyInCopyOutput?: boolean;
-    isHidden?: boolean;
-    isChevron?: boolean;
-    isAlert?: boolean;
-    isSettings?: boolean;
-    onSortInteractionFunction?: Function;
-    onAlertInteractionFunction?: Function;
-    onCopyInteractionFunction?: Function;
-    onRearrangeInteractionFunction?: Function;
+  property: string;
+  value: CellValues;
+  id: string;
+  isCopiable?: boolean;
+  isSortable?: boolean;
+  isDraggable?: boolean;
+  isPropertyInCopyOutput?: boolean;
+  isHidden?: boolean;
+  isChevron?: boolean;
+  isAlert?: boolean;
+  isSettings?: boolean;
+  onSortInteractionFunction?: Function;
+  onAlertInteractionFunction?: Function;
+  onCopyInteractionFunction?: Function;
+  onRearrangeInteractionFunction?: Function;
 };
 
 /**
  * The FooterCell type is a shorter version of a DataCell, to be used exlusively in the table footer row.
  */
 export type FooterCell = {
-    property: string;
-    value: CellValues;
-    id: string;
-    isCopiable?: boolean;
-    isPropertyInCopyOutput?: boolean;
-    isHidden?: boolean;
-    onCopyInteractionFunction?: Function;
+  property: string;
+  value: CellValues;
+  id: string;
+  isCopiable?: boolean;
+  isPropertyInCopyOutput?: boolean;
+  isHidden?: boolean;
+  onCopyInteractionFunction?: Function;
 };
 
 /**
- * The HeaderRowData is a special kind of RowData, accepting exclusively the DsyHeaderCell kind of cell.
-*/
+ * The HeaderRowData is a special kind of RowData, accepting exclusively the HeaderCell kind of cell.
+ */
 export type HeaderRowData = {
-    id: string;
-    cells: {
-        [key: string]: HeaderCell;
-    };
+  id: string;
+  cells: {
+    [key: string]: HeaderCell;
+  };
 };
 
 /**
- * The FooterRowData is a special kind of RowData, accepting exclusively the DsyFooterCellData kind of cell.
+ * The FooterRowData is a special kind of RowData, accepting exclusively the FooterCellData kind of cell.
  */
 export type FooterRowData = {
-    id: string;
-    cells: {
-        [key: string]: FooterCell;
-    }
-}
+  id: string;
+  cells: {
+    [key: string]: FooterCell;
+  };
+};
 
 /**
  * ## TableData
