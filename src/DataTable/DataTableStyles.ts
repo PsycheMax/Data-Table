@@ -15,10 +15,6 @@ const DataTableStyles = css`
     /* background-color: var(--var-data-table--color-primary); */
   }
 
-  .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  }
-
   .table-wrapper {
     overflow-x: auto;
     overflow-y: auto;

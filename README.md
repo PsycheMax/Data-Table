@@ -6,7 +6,7 @@ This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) reco
 
 This Table component will be created with as few dependencies as possible: 
 - lit
-- material icons
+- iconify-icon
 - uuid
 
 Stay tuned to see the final look of it.
