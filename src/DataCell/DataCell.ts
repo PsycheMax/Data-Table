@@ -1,11 +1,14 @@
 import { html, LitElement, TemplateResult, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import { CellValues, CellAlignItemsStates, CellJustifyContentStates } from '../types/ValueTypes.js';
+import {
+  CellValues,
+  CellAlignItemsStates,
+  CellJustifyContentStates,
+} from '../types/ValueTypes.js';
 import { checkIfKeyEventIsAllowed, generateID } from '../utils/index.js';
 import { IDataCellEntry } from '../interfaces/IDataCellEntry.js';
 
 export class DataCell extends LitElement implements IDataCellEntry {
-
   @property({ type: String, reflect: true, attribute: 'property' })
   property: string = '';
 
@@ -102,7 +105,11 @@ export class DataCell extends LitElement implements IDataCellEntry {
   /**
    * Toggles rendering of the pre-set "Three-Dots-Button" content.
    */
-  @property({ type: Boolean, reflect: true, attribute: 'has-custom-three-dots' })
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'has-custom-three-dots',
+  })
   hasCustomThreeDotsCellContent = false;
 
   /**
@@ -163,92 +170,101 @@ export class DataCell extends LitElement implements IDataCellEntry {
     if (this.isIDInCopyOutput) {
       navigator.clipboard.writeText(`${this.property} - ${this.value}`).then(
         () => {
-          console.log('🖥️, DataTable - the following content has been copied to the clipboard:');
+          console.log(
+            '🖥️, DataTable - the following content has been copied to the clipboard:'
+          );
           console.log(this.property, this.value);
         },
         () => {
-          console.warn('🚨, something went wrong, and the data couldn\'t be copied to the clipboard. Check your OS/browser\'s permissions.');
+          console.warn(
+            "🚨, something went wrong, and the data couldn't be copied to the clipboard. Check your OS/browser's permissions."
+          );
         }
       );
     } else {
       navigator.clipboard.writeText(`${this.value}`).then(
         () => {
-          console.log('🖥️, DataTable - the following content has been copied to the clipboard:');
+          console.log(
+            '🖥️, DataTable - the following content has been copied to the clipboard:'
+          );
           console.log(this.value);
         },
         () => {
-          console.warn('🚨, something went wrong, and the data couldn\'t be copied to the clipboard. Check your OS/browser\'s permissions.');
+          console.warn(
+            "🚨, something went wrong, and the data couldn't be copied to the clipboard. Check your OS/browser's permissions."
+          );
         }
       );
     }
   }
 
-
-  iconGenerator(iconType: 'generic' | 'copy' | 'sort' | 'drag'): TemplateResult {
+  iconGenerator(
+    iconType: 'generic' | 'copy' | 'sort' | 'drag'
+  ): TemplateResult {
     let iconName = '';
     let iconLabel = '';
-    let onClickFunction: Function = () => { };
-    let onKeyUpFunction: Function = () => { };
-    let tempIcon = '';
+    let onClickFunction: Function = () => {};
+    let onKeyUpFunction: Function = () => {};
     switch (iconType) {
       case 'copy':
-        onClickFunction = this.onCopyIconInteraction ? (e: Event) => this.onCopyIconInteraction?.(e) : () => this.copyCellValueToClipboard();
-        onKeyUpFunction = (keyEvent: KeyboardEvent) => checkIfKeyEventIsAllowed(keyEvent, onClickFunction);
-        iconName = 'content_copy';
+        onClickFunction = this.onCopyIconInteraction
+          ? (e: Event) => this.onCopyIconInteraction?.(e)
+          : () => this.copyCellValueToClipboard();
+        onKeyUpFunction = (keyEvent: KeyboardEvent) =>
+          checkIfKeyEventIsAllowed(keyEvent, onClickFunction);
+        iconName = 'material-symbols:content-copy';
         iconLabel = 'content-copy clickable icon';
-        tempIcon = '📄'
         break;
       case 'sort':
         onClickFunction = (e: Event) => this.onSortIconInteraction?.(e);
-        onKeyUpFunction = (keyEvent: KeyboardEvent) => checkIfKeyEventIsAllowed(keyEvent, onClickFunction);
-        iconName = 'swap_vert';
+        onKeyUpFunction = (keyEvent: KeyboardEvent) =>
+          checkIfKeyEventIsAllowed(keyEvent, onClickFunction);
+        iconName = 'material-symbols:swap-vert';
         iconLabel = 'sort-content clickable icon';
-        tempIcon = '⤴'
         break;
       case 'drag':
         onClickFunction = (e: Event) => this.onDragIconInteraction?.(e);
-        onKeyUpFunction = (keyEvent: KeyboardEvent) => checkIfKeyEventIsAllowed(keyEvent, onClickFunction);
-        iconName = 'drag_indicator';
+        onKeyUpFunction = (keyEvent: KeyboardEvent) =>
+          checkIfKeyEventIsAllowed(keyEvent, onClickFunction);
+        iconName = 'material-symbols:drag-indicator';
         iconLabel = 'drag-columns clickable icon';
-        tempIcon = '🖐'
         break;
 
       case 'generic':
       default:
         onClickFunction = (e: Event) => this.onContentIconInteraction?.(e);
-        onKeyUpFunction = (keyEvent: KeyboardEvent) => checkIfKeyEventIsAllowed(keyEvent, onClickFunction);
+        onKeyUpFunction = (keyEvent: KeyboardEvent) =>
+          checkIfKeyEventIsAllowed(keyEvent, onClickFunction);
         if (this.isAlertCell) {
-          iconName = 'warning';
-          tempIcon = '⚠';
+          iconName = 'material-symbols:warning';
         }
         if (this.isSettingsCell) {
-          iconName = this.isInSubrow ? 'more_vert' : 'settings';
-          tempIcon = this.isInSubrow ? '🍔' : '⚙️';
+          iconName = this.isInSubrow
+            ? 'material-symbols:more_vert'
+            : 'material-symbols:settings';
         }
         if (this.isChevronCell) {
-          iconName = this.isChevronOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
-          tempIcon = this.isChevronOpen ? '⬇' : '⬆';
+          iconName = this.isChevronOpen
+            ? 'material-symbols:keyboard_arrow_up'
+            : 'material-symbols:keyboard_arrow_down';
         }
         iconLabel = `${iconName} icon`;
 
         break;
     }
-    const iconToGenerate = html`
-      <span
-        tabindex="0"
-        class="icon-container ${iconType} ${iconName}"
-        .onclick="${(e: Event) => onClickFunction(e)}"
-        .onkeydown="${(e: Event) => onKeyUpFunction(e)}"
+    const iconToGenerate = html` <span
+      tabindex="0"
+      class="icon-container ${iconType} ${iconName}"
+      .onclick="${(e: Event) => onClickFunction(e)}"
+      .onkeydown="${(e: Event) => onKeyUpFunction(e)}"
+    >
+      <datatable-icon
+        additionalStyle="font-size: 1.5rem;"
+        name="${iconName}"
+        aria-label="${iconLabel}"
       >
-        <material-icon
-          size="24px"
-          library="material"
-          name="${iconName}"
-          label="${iconLabel}"
-        >
-          ${tempIcon ?? iconName}
-        </material-icon>
-      </span>`;
+      </datatable-icon>
+    </span>`;
     return iconToGenerate;
   }
 
@@ -274,27 +290,33 @@ export class DataCell extends LitElement implements IDataCellEntry {
    */
   render(): TemplateResult {
     // Given the unusual Lit structure used in the table, the "internal" class of the component is hoistered to the component itself.
-    // E.g. It goes from a "typical" rendered `<data-cell><div class="class">...</div></data-cell>` to a rendered `<data-cell class="class">...</data-cell>`. 
+    // E.g. It goes from a "typical" rendered `<data-cell><div class="class">...</div></data-cell>` to a rendered `<data-cell class="class">...</data-cell>`.
     // This helps with accessibility 'default' features in the html <table> component.
     this.className = `cell ${this.conditionalClassGenerator()}`;
 
     const shouldRenderContentIcon =
       this.isChevronCell ||
       (this.isAlertCell && !this.hasCustomAlertCellContent) ||
-      (this.isSettingsCell && this.isInHeaderRow && !this.hasCustomSettingsCellContent) ||
-      (this.isSettingsCell && this.isInSubrow && !this.hasCustomThreeDotsCellContent);
+      (this.isSettingsCell &&
+        this.isInHeaderRow &&
+        !this.hasCustomSettingsCellContent) ||
+      (this.isSettingsCell &&
+        this.isInSubrow &&
+        !this.hasCustomThreeDotsCellContent);
 
     // Every possible icon is variabilized/pre-rendered here, and then invoked in the returned template-result.
     const copyIcon = this.iconGenerator('copy');
     const sortIcon = this.iconGenerator('sort');
     const draggableIcon = this.iconGenerator('drag');
-    const contentIcon = shouldRenderContentIcon ? this.iconGenerator('generic') : nothing;
+    const contentIcon = shouldRenderContentIcon
+      ? this.iconGenerator('generic')
+      : nothing;
 
     return html`
-    <div class='cell'>
-      <slot name="${this.cellID}"></slot>
-      ${copyIcon} ${sortIcon} ${draggableIcon} ${contentIcon}
-    </div>
+      <div class="cell">
+        <slot name="${this.cellID}"></slot>
+        ${copyIcon} ${sortIcon} ${draggableIcon} ${contentIcon}
+      </div>
     `;
   }
 
@@ -303,7 +325,7 @@ export class DataCell extends LitElement implements IDataCellEntry {
    * Implementing this method allows the component to be rendered in light-DOM mode, transposing the content of the render method inside the "this" object (and the relative tag), instead of the regular this.shadowDom .
    * This means that whatever is returned by the render method will be simply wrapped by `<data-cell></data-cell>`, and not a #shadowRoot virtual tag.
    * NOTE that this will cause the styles in the DataTable shadow-dom to leak into this component - causing the 'styles' declared here to never be declared anywhere in the rendered HTML tree.
-   * E.G. <data-cell><p>I'm an example</p><span class="icon-container drag"><material-icon size="24px" library="material" name="draggable"></material-icon></span></data-cell>
+   * E.G. <data-cell><p>I'm an example</p><span class="icon-container drag"><datatable-icon  name="whatever"></datatable-icon></span></data-cell>
    * @returns the whole rendered component.
    */
   protected createRenderRoot(): Element | ShadowRoot {
@@ -311,4 +333,5 @@ export class DataCell extends LitElement implements IDataCellEntry {
   }
 }
 
-if (!window.customElements.get('data-cell')) window.customElements.define('data-cell', DataCell);
+if (!window.customElements.get('data-cell'))
+  window.customElements.define('data-cell', DataCell);
